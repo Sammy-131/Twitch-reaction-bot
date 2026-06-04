@@ -1,0 +1,105 @@
+:root {
+  font-family: Inter, system-ui, sans-serif;
+  background: #0b1220;
+  color: #f8f8f2;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+header h1 {
+  margin: 0 0 8px;
+  font-size: 2rem;
+}
+
+header p {
+  margin: 0 0 24px;
+  color: #a2a9b8;
+}
+
+.controls {
+  display: grid;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.controls label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.95rem;
+}
+
+.controls input {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #2f3a54;
+  background: #111824;
+  color: #f8f8f2;
+}
+
+.controls button {
+  width: fit-content;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 10px;
+  background: #7c5cff;
+  color: white;
+  cursor: pointer;
+}
+
+.status {
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #141c2c;
+  color: #cbd5e1;
+}
+
+.status.error {
+  background: #4a1f1f;
+}
+
+.feed {
+  border: 1px solid #1f2a41;
+  border-radius: 14px;
+  background: #101720;
+  padding: 16px;
+}
+
+.messages {
+  display: grid;
+  gap: 10px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.message {
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #141a2a;
+  border: 1px solid #1f2a41;
+}
+
+.message.chat {
+  border-left: 4px solid #4191ff;
+}
+
+.message.reaction {
+  border-left: 4px solid #7c5cff;
+}
+
+.message.status {
+  border-left: 4px solid #55d9a2;
+}
+
+.message.error {
+  border-left: 4px solid #ff5f75;
+}

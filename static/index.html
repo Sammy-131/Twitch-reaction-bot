@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Twitch Chat Reaction Bot</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Twitch Chat Reaction Bot</h1>
+      <p>Connect to a streamer chat, detect keywords, and see live text reactions.</p>
+    </header>
+
+    <section class="controls">
+      <label>
+        Twitch channel
+        <input id="channelInput" placeholder="Streamer name" />
+      </label>
+      <label>
+        Keywords / emotes (comma separated)
+        <input id="keywordsInput" placeholder="hey,hello,warframe" />
+      </label>
+      <button id="connectButton">Connect</button>
+      <div class="status" id="statusMessage">Disconnected</div>
+    </section>
+
+    <section class="feed">
+      <h2>Live feed</h2>
+      <div id="messages" class="messages"></div>
+    </section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

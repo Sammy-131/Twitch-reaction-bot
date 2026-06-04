@@ -78,6 +78,11 @@ class TwitchChatBot:
         if cleaned_channel != self.channel:
             self.channel = cleaned_channel
             self.reconnect_event.set()
+            if self.writer and not self.writer.is_closing():
+                try:
+                    self.writer.close()
+                except Exception:
+                    pass
         self.keywords = new_keywords or self.keywords
 
     async def _run_loop(self) -> None:
@@ -234,6 +239,10 @@ async def websocket_endpoint(websocket: WebSocket) -> None:
                     "type": "status",
                     "message": f"Updated settings: channel=#{channel}, keywords=[{keywords}].",
                 }))
+                await manager.broadcast({
+                    "type": "status",
+                    "message": f"Switching Twitch bot to channel #{channel}.",
+                })
     except WebSocketDisconnect:
         manager.disconnect(websocket)
     except Exception:

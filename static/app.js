@@ -35,7 +35,8 @@ async function loadDefaults() {
 
 function connectWebSocket() {
   if (socket && socket.readyState === WebSocket.OPEN) {
-    addMessage("Already connected to WebSocket.");
+    addMessage("Already connected to WebSocket. Updating channel/keywords...");
+    sendSettings();
     return;
   }
 

@@ -1,10 +1,30 @@
 const statusMessage = document.getElementById("statusMessage");
 const messages = document.getElementById("messages");
+const backendUrlInput = document.getElementById("backendUrlInput");
 const channelInput = document.getElementById("channelInput");
 const keywordsInput = document.getElementById("keywordsInput");
 const connectButton = document.getElementById("connectButton");
 
 let socket;
+
+function getBackendBaseUrl() {
+  const configuredUrl = window.BACKEND_URL?.trim() || backendUrlInput?.value.trim();
+  if (configuredUrl) {
+    return configuredUrl.replace(/\/$/, "");
+  }
+  return `${window.location.protocol}//${window.location.host}`;
+}
+
+function getWebSocketUrl() {
+  const baseUrl = getBackendBaseUrl();
+  const protocol = baseUrl.startsWith("https") ? "wss" : "ws";
+  return `${protocol}://${baseUrl.replace(/^https?:\/\//, "")}/ws`;
+}
+
+function getConfigUrl() {
+  const baseUrl = getBackendBaseUrl();
+  return `${baseUrl.replace(/\/$/, "")}/config`;
+}
 
 function addMessage(text, type = "info") {
   const messageElement = document.createElement("div");
@@ -20,7 +40,7 @@ function setStatus(text, isError = false) {
 
 async function loadDefaults() {
   try {
-    const response = await fetch("/config");
+    const response = await fetch(getConfigUrl());
     const config = await response.json();
     if (config.defaultChannel) {
       channelInput.value = config.defaultChannel;
@@ -40,7 +60,7 @@ function connectWebSocket() {
     return;
   }
 
-  socket = new WebSocket((window.location.protocol === "https:" ? "wss" : "ws") + "://" + window.location.host + "/ws");
+  socket = new WebSocket(getWebSocketUrl());
 
   socket.addEventListener("open", () => {
     setStatus("Connected to bot backend.");
